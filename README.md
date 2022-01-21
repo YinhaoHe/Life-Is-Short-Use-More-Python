@@ -392,3 +392,7 @@ save_user(id=1, name="admin")
 - F10 - Step over one line
 - F11 - Step into a function
 - Shift + F11 - Step out of a function
+
+## Python Data Structures
+
+### List
