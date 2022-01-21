@@ -290,3 +290,105 @@ else:
 - Same as for loop, it while loop completes without hitting any `break`, `else` gets excicuted.
 
 ### Functions
+
+- To call a function under definition, we should always leave two lines blank.
+- We can return multiple values in Python `return (number, number + by)`
+- Even if no code in `increment()`, when print, it will print `None`
+
+```python
+def increment(number, by):
+  	return (number, number + by)
+  
+  
+print(increment(2, 3))
+```
+
+- `return (number, number + by)` is a **Tuple**
+- To make a list `[1, 2]`, to make a tuple `(1, 2)`
+- Keyword argument: `print(increment(2, by = 3))`
+- Function can set default value: `def increment(number, by=1)`, so you can call `increment(2)` with only one parameter.
+- Type annotation: `def increment(number: int, by: int = 1) -> tuple`
+- Type annotation can specify the type of every parameter, and the return value of the function
+
+```python
+def increment(number: int, by: int=1) -> tuple:
+  	return (number, number + by)
+  
+  
+print(increment(2))
+```
+
+### Arguments xargs asterisk - 星号`*`
+
+- When add `*` before a parameter, Python will package the parameter into a Tuple.
+
+```python
+def multiply(*list):
+  	# print(list)
+    total = 1
+    for number in list:
+      	total *= number
+    return total
+    
+multiply(2, 3, 4, 5)
+
+# list will be auto packed into a Tuple
+```
+
+### Arguments xxargs asterisk - 两个星号`**`
+
+- When add two `**` before a parameter, Python will package the **keyword arguments** into **Dictionary**
+
+```python
+def save_user(**user):
+  	print(user)
+    print(user["id"])
+    print(user["name"])
+    
+    
+save_user(id=1, name="admin")
+
+# {'id': 1, 'name': 'admin'}
+```
+
+- It is similar to **Object** in JavaScript
+
+### Scope
+
+- Local variable: Python don't have block scope, if the variable is defined in this function, it can always be access within this function. 
+
+- ```python
+  def greet():
+    	if True:
+        	message = "a"
+      print(message)
+      
+  # This is legal, since message is in function greet()
+  ```
+
+- Global variable: If global variable, it can be accessed anywhere in this **file.**
+
+- ```python
+  message = "a"
+  
+  def greet():
+    	message = "b"
+      print(message) # Get b, since this will create a local variable also called message, inside this function.
+  
+      
+  greet()
+  print(message) # Still print a, since global variable is not allowed to be changed inside of a function
+  ```
+
+- But if you add `global message` before `message = "b"`, it will allow you to change value for global variable.
+
+- Make sure **NEVER DO THAT**. Global variables are EVIL.
+
+### Debugging
+
+- VS Code - Go to debug panel, create a launch.json
+- F9 - Add break point
+- F5 - Start debugging session
+- F10 - Step over one line
+- F11 - Step into a function
+- Shift + F11 - Step out of a function
