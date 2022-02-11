@@ -9,6 +9,7 @@ Some interesting things about Python!
 - **Dynamic type** language similiar to JavaScript and Ruby
 - **Integer** in Python is **Immutable**
 - **list** in Python is **mutable**
+- Everything in Python is **Object**.
 
 ### Variable:
 
@@ -396,3 +397,116 @@ save_user(id=1, name="admin")
 ## Python Data Structures
 
 ### List
+
+- List, can put any type into a list in Python, list of strings/lists anything
+- `*` can be used to replicate the elements in the list
+- `+` can be used to concat the lists
+- `list()` is a function which takes a iterable as argument, so we can pass in a iterable to create list
+
+Some examples:
+
+```python
+letters = ["a", "b", "c"]
+matrix = [[0, 1], [2, 3]]
+zeros = [0] * 5
+combined = zeros + letters
+numbers = list(range(20))
+chars = list("Hello World") # Since String in Python is also iterable
+```
+
+### Accessing Items
+
+- `letters[0]` - access the first element counting from begin
+- `letters[-1]` - access the first element counting from behind
+
+Slice list will create a new list, will **NOT** make change to the original list
+
+- `letters[0:3]` equals `letters[:3]` - slice first three elements
+- `letters[0:]` - slice from index 0 to end of list
+- `letters[:]` -  copy a new list, is **NOT** a reference to old list
+- `letters[::2]` - copy list every two steps
+  - Example: `letters = ["a", "b", "c", "d"]`
+  - `new_letters = letter[::2]`
+  - `print(new_letters)` - `["a", "c"]`
+
+- `letters[::-1]` - create a reverse order list
+  - Example: `numbers = [1, 2, 3]`
+  - `new_numbers = numbers[::-1]`
+  - `print(new_numbers)` - `[3, 2, 1]`
+
+### List Unpacking
+
+- To assign variables to every element in a list is called list unpacking
+- To unpack the list, need to assign same amount of variables to the number of elements in the list
+
+```python
+numbers = [1, 2, 3]
+first, second, third = numbers
+
+# first = 1
+# second = 2
+# third = 3
+```
+
+- **Or**, you can assign any number of varibles and follow with a `*other`, the `*other` will pack anything else into a new list, example below
+
+```python
+many_numbers = [1, 2, 3, 4, 4, 4, 4, 4, 4]
+first, second, *other = many_numbers
+
+# first = 1
+# second = 2
+# other = [3, 4, 4, 4, 4, 4, 4]
+```
+
+- Same thing, if you want to get the **first and last** item, just do:
+
+```python
+many_numbers = [1, 2, 3, 4, 4, 4, 4, 4, 9]
+first, *other, last = many_numbers
+
+# first = 1
+# other = [2, 3, 4, 4, 4, 4, 4,]
+# last = 9
+```
+
+### Looping Over List
+
+- Loop elements:
+
+- ```python
+  letters = ["a", "b", "c"]
+  for letter in letters:
+    	print(letter)
+  ```
+
+- Loop index plus elements:
+
+- `enumerate()` - function will return a enumerate object, which is iterable - It is a Tuple
+
+- ```python
+  letters = ["a", "b", "c"]
+  for index, letter in enumerate(letters):
+    	print(index, letter)
+  ```
+
+- Can unpack the elements in the `enumerate` object (Tuple) to loop, example above
+
+### Adding or Removing Items
+
+- `append()` - add from behind
+-  `insert(0, "-")` - insert at index 0
+-  `pop()` - remove from behind
+-  `pop(0)` - remove index 0 item
+-  `remove("b")` - will **remove the first occurance** of letter "b"
+  - If you want to remove all "b" in the list, have to loop through it, no better way
+-  `del letters[0:3]`  - will remove first three items in the list
+-  `clear()` method will remove all items in the list
+
+### Finding Items
+
+- `index("a")` - find index of item "a", if not exist, get an error
+- `in` - determine if items in a list
+  -  `if "d" in letters` - determine if "d" is in the list, to prevent errors
+- `count("d")` - count number of "d" in list
+
