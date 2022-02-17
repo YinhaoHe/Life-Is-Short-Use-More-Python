@@ -510,3 +510,339 @@ first, *other, last = many_numbers
   -  `if "d" in letters` - determine if "d" is in the list, to prevent errors
 - `count("d")` - count number of "d" in list
 
+### Sorting Lists
+
+- `numbers.sort()` - sort original list, default ascending order
+- `numbers.sort(reverse=True)` - sort descending order
+- `sorted(numbers)` - sort and **return a new list**, will not affect original list
+
+```python
+numbers = [3, 51, 2, 8, 6]
+numbers.sort()
+numbers.sort(reverse=True)
+
+new_numbers = sorted(numbers)
+new_numbers_reverse = sorted(numbers, reverse=True)
+```
+
+- A more complex sorting, like sorting a complex object:
+
+```python
+items = [
+  	("Product1", 10),
+	  ("Product1", 9),
+	  ("Product1", 12),
+]
+
+def sort_item(item):
+  	return item[1]
+
+items.sort(key= sort_item)
+print(items)
+```
+
+### Lambda Functions
+
+- A simple one line anonymous function that we can pass to other functions.
+- **anonymous function**
+
+```python
+items = [
+  	("Product1", 10),
+	  ("Product1", 9),
+	  ("Product1", 12),
+]
+
+items.sort(key=lambda item:item[1])
+```
+
+### Map Function
+
+- Used for mapping elements into different shapes
+- `map()` function returns a map object, which is iterable
+- Can call `list(map(...))` to make it a list
+- Often used for functional programming
+
+```python
+items = [
+  	("Product1", 10),
+	  ("Product1", 9),
+	  ("Product1", 12),
+]
+
+price_list = list(map(lambda item : item[1], items))
+print(price_list)
+```
+
+### Filter Function
+
+- `filter()` filter out the values based on some criteria
+- Often used for functional programming
+- Only works with single list
+
+```python
+items = [
+  	("Product1", 10),
+	  ("Product1", 9),
+	  ("Product1", 12),
+]
+
+filtered = list(filter(lambda item: item[1] >= 10, items))
+print(filtered)
+```
+
+### List Comprehensions
+
+- `[expression for item in items]`
+- A unique way of `map()` and `filter()` only works in Python
+- Only works with single list
+
+```python
+items = [
+  	("Product1", 10),
+	  ("Product1", 9),
+	  ("Product1", 12),
+]
+
+price_list = list(map(lambda item : item[1], items))
+filtered = list(filter(lambda item: item[1] >= 10, items))
+```
+
+- Above equals below, and it is preferable to use below in Python
+
+```python
+price_list = [item[1] for item in items]
+filtered = [item for item in items if item[1] >= 10]
+```
+
+### Zip Funtion
+
+- `zip()` works with multiple lists
+- `zip()` can take many iterables as perameter, you can even put a string into a `zip()` function
+- `zip("abc", list1, list2)`
+
+```python
+list1 = [1 ,2, 3]
+list2 = [10, 20, 30]
+
+list(zip(list1, list2))
+
+# [(1, 10), (2, 20), (3, 30)]
+```
+
+### Stacks
+
+- `python_stack = []` nothing special, can use list to implement stack
+- `python_stack.append()` - to add into stack
+- `python_stack.pop()` - pop the top of stack
+- `python_stack[-1]` - access the top of stack
+
+### Queues
+
+- Cannot use list to implement queues, since move from begining of a list will cause every element in the queue to move one postion forward, very expensive
+- Use `deque`
+- `queue.append(1)` - add to queue from back
+- `queue.popleft()` - pop from beginning/left from the queue
+
+```python
+from collections import deque
+queue = deque([])
+queue.append(1)
+queue.popleft()
+```
+
+### Tuples
+
+- A read only list - **cannot** modify it at all
+- `point = (1, 2)` or `point = 1, 2` both work
+- `point = (1, 2) + (3, 4)` can add two tuples
+- `point = (1, 2) * 3` can multiply tuples
+- `point = tuple([1, 2])` can convert a list to a tuple 
+- `tuple()` takes in a iterable
+- `point[0:2]` can return first two as a NEW tuple
+- `x, y, z = point` can unpack a tuple
+- `if 10 in point` can use `in` operator to a tuple
+- CANNOT `point[0] = 10` it is immutable
+- Used for when you don't want to accidentally change or add a new value to a list, you can use tuple instead - like `const` in JavaScript
+
+### Swapping Variables
+
+- In Python, can use tuple and unpacking to swap it without defining a third variable
+
+```python
+x = 10
+y = 11
+
+x, y = y, x
+# Successfully swap x and y
+```
+
+- Under the hood, `x, y = y, x` 
+- Right side: `y, x ` is actually defining a tuple, so it equals `x, y = (y, x)`, but you can simplify that but removing the `()`
+- Left side: `x, y` is actually unpacking the tuple on its right, so actually `x, y = (11, 10)` just unpack the tuple
+- Both together, we can swap value without creating a third variable
+
+### Arrays
+
+- array is a little little little bit faster than list.
+- `array()` - takes a Python **Typecode** and a list as parameters
+
+```python
+from array import array
+
+numbers = array("i", [1, 2, 3])
+numbers.append(4)
+numbers.insert(0)
+numbers.pop()
+numbers.remove(2)
+numbers[0]
+```
+
+- But unlike list, everything in the array is **typed**, so everything should be same type
+- DO NOT USE THIS VERY OFTEN, if no performance issue, skip and only use list
+
+### Sets
+
+- Contains non-duplicate elements
+
+```python
+numbers = [1, 2, 3, 3, 3, 4]
+first = set(numbers)
+second = {1, 4} # Define a set
+second.add(5)
+second.remove(5)
+len(second)
+
+# Cool ones
+first | second # get a union
+first & second # get a intersaction
+first - second # difference
+first ^ second # Symetric difference
+```
+
+- Get a union `first | second`
+- Get a intersaction `first & second` 
+- Get a difference `first - second`
+- Symetric difference `first ^ second` - either in first or second but not in both
+- Unordered, cannot access using index
+- `if 1 in first` - can use `in ` to check if exists in set
+
+### Dictionaries
+
+- Define `point = {"x": 1, "y": 2}`
+
+- `dict(x=1, y=2)` parameters are called **keyword arguments**
+
+- Key must be immutable type, like string or numbers
+
+- Values can be any type
+
+- `point["x"]` get the value of x
+
+- `point["x"] = 10` change a value
+
+- `point["z"] = 20` add a value
+
+- Invalid key will get an error, `point["a"]` - get KeyError
+
+- `if "a" in point` - check "a" in dict
+
+- `point.get("a")` - get key "a" associated value, if not exists, return None
+
+- Get or default `point.get("a", 0)` - if "a" exist, return value or return 0
+
+- `del point["x"]` remove a key/value
+
+- loop over dict
+
+  - ```python
+    for key in point:
+    		print(key, point[key])
+    ```
+
+  - ```python
+    for key, value in point.items():
+    		print(key, value)
+    ```
+
+### Dictionary Comprehensions
+
+- List comprehensions
+
+```python
+values = []
+for x in range(5):
+  	values.append(x * 2)
+    
+# Same as
+a_list = [x * 2 for x in range(5)]
+```
+
+- Set comprehensions
+
+```python
+a_set = {x * 2 for x in range(5)}
+```
+
+- Dict comprehensions:
+
+```python
+a_dict = {x: x * 2 for x in range(5)}
+
+# {0: 0, 1: 2, 2: 4}
+```
+
+- For tuple
+
+```python
+values = (x * 2 for x in range(5))
+
+# get a generator object, not getting a tuple
+```
+
+### Generator Expressions
+
+- A generator object do NOT store all values in the memory
+- Good for dealing with large data or data stream
+
+```python
+values = (x * 2 for x in range(5))
+for x in values:
+  	print x
+
+# It works
+# But values is NOT a list
+# It is a Generator Object
+```
+
+- generator object is **very small** - `from sys import getsizeof` - can check the memory size
+- Cannot know how many items in the generator object, it has no `len()`
+
+### Unpacking Operator
+
+- `*` is the unpacking operator
+
+- It can unpack any iterables `values = [*range(5), *"Hello"]`
+
+- Only works in Python
+
+- Can combine many lists
+
+  - ```python
+    first = [1, 2]
+    second = [3, 4]
+    values = [*first, "a", *second, *"Hello"]
+    ```
+
+- Unpack a Dict use `**` operator
+
+  - ```python
+    first = {"x": 1}
+    second = {"x": 10, "y": 2}
+    combined = {**first, **second, "z": 1}
+    
+    # {'x': 10, 'y': 2, 'z': 1}
+    # When same key value, it will unpack and save as the last value
+    ```
+
+  - When key values same, will leave it as the last one
